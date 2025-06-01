@@ -26,6 +26,7 @@ from picai_baseline.unet.training_setup.data_generator import prepare_datagens
 from picai_baseline.unet.training_setup.default_hyperparam import \
     get_default_hyperparams
 from picai_baseline.unet.training_setup.loss_functions.focal import FocalLoss
+from picai_baseline.unet.training_setup.loss_functions.bce_dice import BCEDiceLoss
 from picai_baseline.unet.training_setup.neural_network_selector import \
     neural_network_for_run
 from torch.utils.tensorboard import SummaryWriter
@@ -112,8 +113,11 @@ def main():
         model = neural_network_for_run(args=args, device=device)
 
         # loss function + optimizer
-        loss_func = FocalLoss(alpha=class_weights[-1], gamma=args.focal_loss_gamma).to(device)
+        #loss_func = DiceFocalLoss(alpha=class_weights[-1], gamma=args.focal_loss_gamma).to(device)
+        #loss_func = FocalTverskyLoss().to(device)
+        loss_func = BCEDiceLoss(bce_weight=0.6).to(device)
         optimizer = torch.optim.Adam(params=model.parameters(), lr=args.base_lr, amsgrad=True)
+        #optimizer = torch.optim.Adamax(params=model.parameters(), lr=args.base_lr)
         # --------------------------------------------------------------------------------------------------------------------------
         # training loop
         writer = SummaryWriter()
@@ -159,3 +163,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
