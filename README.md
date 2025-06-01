@@ -1,3 +1,15 @@
+# PI-CAI challenge group 10
+
+This (forked) repository contains the baseline U-Net as provided by the [PI-CAI challenge by DIAGNijmegen](https://github.com/DIAGNijmegen/picai_baseline) for the Grand Challenge competition, as well as the changes we made to this repository for our attempt on the PI-CAI challenge. These are the changes we made:
+
+- We added the [BCE/Dice loss function](src/picai_baseline/unet/training_setup/loss_functions/bce_dice.py).
+- You can choose which loss function (Focal loss or BCE/Dice loss), and the weights for BCE and Dice in [the U-Net train file](src/picai_baseline/unet/train.py)
+- We added our initial efforts for the [TransU-Net file](src/picai_baseline/unet/training_setup/neural_networks/transunet.py), which we were not capable of training, as we were limited by the available amount of GPU VRAM. The code for the Trans-UNet was adapted from [the 3D-TransU-Net repository](https://github.com/Beckschen/3D-TransUNet).
+
+Furthermore, the code in this repository can be ran in the same way as the PI-CAI baseline provides. Hence, the original README.md file from the baseline repository will now follow:
+
+---
+
 # Baseline AI Models for Prostate Cancer Detection in MRI
 
 This repository contains utilities to set up and train deep learning-based detection models for clinically significant prostate cancer (csPCa) in MRI. In turn, these models serve as the official baseline AI solutions for the [PI-CAI challenge](https://pi-cai.grand-challenge.org/). As of now, the following three models are provided and supported:
